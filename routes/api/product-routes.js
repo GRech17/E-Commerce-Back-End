@@ -49,7 +49,7 @@ router.get('/:id', (req, res) => {
   })
   .then(dbProductData => {
     if (!dbProductData) {
-      res.status(404.json({ message: 'No product found with this id'}));
+      res.status(404).json({ message: 'No product found with this id'});
       return;
     }
     res.json(dbProductData);
@@ -83,12 +83,12 @@ router.post('/', (req, res) => {
         return ProductTag.bulkCreate(productTagIdArr);
       }
       // if no product tags, just respond
-      res.status(200).json(product);
+      res.status(400).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       console.log(err);
-      res.status(400).json(err);
+      res.status(200).json(err);
     });
 });
 
